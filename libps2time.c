@@ -431,12 +431,11 @@ size_t ps2time_strftime( char *str, size_t maxsize, const char *fmt, const struc
 		case 'a':
 			if (ts->tm_wday < 0 || ts->tm_wday > 6)
 				putstr = "?";
+			else if (ch == 'A')
+				putstr = day_name[ts->tm_wday];
 			else
-				if (ch == 'A')
-					putstr = day_name[ts->tm_wday];
-				else
-					sprintf(tmpbuf, "%-.3s", day_name[ts->tm_wday]);
-				break;
+				sprintf(tmpbuf, "%-.3s", day_name[ts->tm_wday]);
+			break;
 		case 'B':
 		case 'b':
 		case 'h':
@@ -448,16 +447,16 @@ size_t ps2time_strftime( char *str, size_t maxsize, const char *fmt, const struc
 				sprintf(tmpbuf, "%-.3s", mth_name[ts->tm_mon]);
 			break;
 		case 'C':
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%A, %B %e, %Y", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%A, %B %e, %Y", ts);
 			break;
 		case 'c':
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%x %X", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%x %X", ts);
 			break;
 		case 'D':
 #ifndef LOCAL_DDMMYY
 		case 'x':
 #endif
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%m/%d/%y", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%m/%d/%y", ts);
 			break;
 		case 'd':
 			sprintf(tmpbuf, "%02d", ts->tm_mday);
@@ -493,10 +492,10 @@ size_t ps2time_strftime( char *str, size_t maxsize, const char *fmt, const struc
 			putstr = (ts->tm_hour < 12) ? "AM" : "PM";
 			break;
 		case 'r':
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%I:%M:%S %p", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%I:%M:%S %p", ts);
 			break;
 		case 'R':
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%H:%M", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%H:%M", ts);
 			break;
 		case 'S':
 			sprintf(tmpbuf, "%02d", ts->tm_sec);
@@ -505,7 +504,7 @@ size_t ps2time_strftime( char *str, size_t maxsize, const char *fmt, const struc
 #ifndef LOCAL_DOTTIME
 		case 'X':
 #endif
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%H:%M:%S", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%H:%M:%S", ts);
 			break;
 		case 'U':	/* week of year - starting Sunday */
 			sprintf(tmpbuf, "%02d", (ts->tm_yday - ts->tm_wday + 10) / 7);
@@ -521,12 +520,12 @@ size_t ps2time_strftime( char *str, size_t maxsize, const char *fmt, const struc
 			break;
 #ifdef LOCAL_DOTTIME
 		case 'X':
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%H.%M.%S", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%H.%M.%S", ts);
 			break;
 #endif
 #ifdef LOCAL_DDMMYY
 		case 'x':
-			ps2time_strftime(tmpbuf, sizeof tmpbuf, "%d/%m/%y", ts);
+			ps2time_strftime(tmpbuf, sizeof(tmpbuf), "%d/%m/%y", ts);
 			break;
 #endif
 		case 'Y':

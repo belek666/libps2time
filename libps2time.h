@@ -67,6 +67,10 @@ struct timeval {
 };
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int			ps2time_intr_handler( int ca );
 int			ps2time_init( void );
 
@@ -81,4 +85,8 @@ double		ps2time_difftime( time_t t1, time_t t0 );
 size_t		ps2time_strftime( char *str, size_t maxsize, const char *fmt, const struct tm *ts );
 int			ps2time_gettimeofday( struct timeval *tv, void *tzp );
 void		ps2time_setTimezone( s32 offset );
+
+#ifdef __cplusplus
+}
+#endif
 #endif // _LIBPS2TIME_H_
